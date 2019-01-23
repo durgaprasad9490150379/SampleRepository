@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+int main()
+{   int Counter;
+    char Input[50]; 
+    int Length, Maximum, Minimum, 
+ASCIIVal[50], AddSmlt[50], ModSmlt[50], 
+XORgrt[50], F_k[50];
+    printf("Enter text to generate final 
+key:  ");
+    scanf("%[^\n]s", Input);
+    Length = strlen(Input);
+    for(Counter = 0; Counter < Length; 
+Counter++) {
+        ASCIIVal[Counter] = Input[Counter];
+    }
+    Maximum = ASCIIVal[0];
+    Minimum = ASCIIVal[0];
+    for(Counter = 1; Counter < Length; 
+Counter++) {
+        if(Maximum < ASCIIVal[Counter]) {
+            Maximum = ASCIIVal[Counter];
+        }
+        if(Minimum > ASCIIVal[Counter]) {
+            Minimum = ASCIIVal[Counter];
+        }
+    }
+    printf("Key Generation Process\n");
+    
+printf("____________________________________________________");
+    printf("\n S.No  Key  AsciiVal  ModSmlt  
+XORgrt  AddSmlt  F.K");
+    
+printf("\n____________________________________________________");
+    for(Counter = 0; Counter < Length; 
+Counter++) {
+        ModSmlt[Counter] = 
+(ASCIIVal[Counter] % Minimum);
+        XORgrt[Counter] = (ModSmlt[Counter] 
+^ Maximum);
+        AddSmlt[Counter] = XORgrt[Counter] 
++ Minimum; 
+        F_k[Counter] = AddSmlt[Counter] % 
+13;
+        printf("\n  %2d    %c     %3d       
+%2d       ", Counter + 1, Input[Counter], 
+ASCIIVal[Counter], ModSmlt[Counter]);
+        printf("%3d     %3d     %2d", 
+XORgrt[Counter], AddSmlt[Counter], 
+F_k[Counter]);
+        
+    }
+    
+printf("\n____________________________________________________");
+    return 0;
+}
+

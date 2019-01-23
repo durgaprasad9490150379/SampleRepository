@@ -1,0 +1,82 @@
+#include <stdio.h>
+
+int main()
+{   int Counter, j;
+    char PlainText[50], ROT13[50]; 
+    int Length, Maximum, Minimum, 
+ASCIIVal[50], ModSmlt[50], XORwithFK[50], 
+Mod13[50], Q[50], AddSmlt[50], 
+CipherText[50];
+    char ROT1[] = 
+{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a', 
+'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
+'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 
+'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 
+'z'};
+    char ROT2[] = 
+{'N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','n', 
+'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 
+'w', 'x', 'y', 'z','a', 'b', 'c', 'd', 'e', 
+'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'};
+    int  F_k[] = {6,10,3,8,9,9};
+    printf("Enter Plain text to encryption:  
+");
+    scanf("%[^\n]s", PlainText);
+    Length = strlen(PlainText);
+    for(Counter = 0; Counter < Length; 
+Counter++) {
+        for( j = 0; j < 52; j++) {
+            if(PlainText[Counter] == 
+ROT1[j]) {
+                ROT13[Counter] = ROT2[j];
+                ASCIIVal[Counter] = 
+ROT13[Counter];
+                break;
+            }
+        }
+    }
+    Minimum = ASCIIVal[0];
+    for(Counter = 1; Counter < Length; 
+Counter++) {
+        if(Minimum > ASCIIVal[Counter]) {
+            Minimum = ASCIIVal[Counter];
+        }
+    }
+    printf("\nEncryption Process\n");
+    
+printf("\n_________________________________________________________________________________");
+    printf("\n S.No  PlainText ROT13 
+ASCIIVal ModSmlt XORwithFK Mod13  Q  
+AddSmlt CipherText ");
+    
+printf("\n_________________________________________________________________________________\n");
+    for(Counter = 0; Counter < Length; 
+Counter++) {
+        ModSmlt[Counter] = 
+ASCIIVal[Counter] % Minimum;
+        XORwithFK[Counter] = 
+ModSmlt[Counter] ^ F_k[Counter % 6];
+        Mod13[Counter] = XORwithFK[Counter] 
+% 13;
+        Q[Counter] = XORwithFK[Counter] / 
+13;
+        AddSmlt[Counter] = Mod13[Counter] + 
+Minimum;
+        CipherText[Counter] = 
+AddSmlt[Counter];
+        printf(" %2d        %c       %c   
+", Counter+1, PlainText[Counter], 
+ROT13[Counter]);
+        printf("  %3d      %2d        %2d  
+",  ASCIIVal[Counter],  ModSmlt[Counter], 
+XORwithFK[Counter]);
+        printf("   %2d   %2d    %2d      %c 
+",  Mod13[Counter], Q[Counter], 
+AddSmlt[Counter], CipherText[Counter]);
+        printf("\n");
+    }
+    
+printf("_________________________________________________________________________________");    
+    return 0;
+}
+    

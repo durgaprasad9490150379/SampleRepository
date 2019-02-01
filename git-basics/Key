@@ -1,8 +1,12 @@
+Key Generation Process:
+************************
+
 #include <stdio.h>
 
 int main()
 {   int Counter;
-    char Input[50]; 
+ fasf
+ char Input[50]; 
     int Length, Maximum, Minimum, 
 ASCIIVal[50], AddSmlt[50], ModSmlt[50], 
 XORgrt[50], F_k[50];
